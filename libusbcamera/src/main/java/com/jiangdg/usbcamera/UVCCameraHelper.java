@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.os.Environment;
+import android.util.Log;
 
 import com.jiangdg.libusbcamera.R;
 import com.serenegiant.usb.DeviceFilter;
@@ -27,6 +28,8 @@ import java.util.List;
 public class UVCCameraHelper {
     public static final String ROOT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
             + File.separator;
+    /*public static final String ROOT_PATH = Environment.getDataDirectory().getParentFile().getAbsolutePath()
+            + File.separator;*/
     public static final String SUFFIX_JPEG = ".jpg";
     public static final String SUFFIX_MP4 = ".mp4";
     private static final String TAG = "UVCCameraHelper";
@@ -246,6 +249,7 @@ public class UVCCameraHelper {
 
     public void capturePicture(String savePath,AbstractUVCCameraHandler.OnCaptureListener listener) {
         if (mCameraHandler != null && mCameraHandler.isOpened()) {
+            Log.d("UVCCameraHelper","isOpened");
             mCameraHandler.captureStill(savePath,listener);
         }
     }

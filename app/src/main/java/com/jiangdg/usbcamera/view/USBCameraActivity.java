@@ -224,12 +224,23 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
                     showShortMsg("sorry,camera open failed");
                     return super.onOptionsItemSelected(item);
                 }
+                File picDir = new File(UVCCameraHelper.ROOT_PATH + MyApplication.DIRECTORY_NAME +"/images/");
+                if (picDir.isDirectory())
+                {
+                    Toast.makeText(USBCameraActivity.this,"文件夹已存在",Toast.LENGTH_SHORT).show();
+                }else {
+                    picDir.mkdir();
+                }
                 String picPath = UVCCameraHelper.ROOT_PATH + MyApplication.DIRECTORY_NAME +"/images/"+ System.currentTimeMillis()
                         + UVCCameraHelper.SUFFIX_JPEG;
+                Toast.makeText(USBCameraActivity.this,"picPath:"+picPath,Toast.LENGTH_SHORT).show();
+                //内部存储路径：picPath:/storage/emulated/0/USBCamera/images/timestrem.jpg
+                //picPath://USBCamera/images/timestrem.jpg
                 mCameraHelper.capturePicture(picPath, new AbstractUVCCameraHandler.OnCaptureListener() {
                     @Override
                     public void onCaptureResult(String path) {
                         Log.i(TAG,"save path：" + path);
+                        Toast.makeText(USBCameraActivity.this,"AAAApath:"+path,Toast.LENGTH_SHORT ).show();
                     }
                 });
 
@@ -240,6 +251,13 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
                     return super.onOptionsItemSelected(item);
                 }
                 if (!mCameraHelper.isPushing()) {
+                    File videoDir = new File(UVCCameraHelper.ROOT_PATH + MyApplication.DIRECTORY_NAME +"/videos/");
+                    if (videoDir.isDirectory())
+                    {
+                        Toast.makeText(USBCameraActivity.this,"文件夹已存在",Toast.LENGTH_SHORT).show();
+                    }else {
+                        videoDir.mkdir();
+                    }
                     String videoPath = UVCCameraHelper.ROOT_PATH + MyApplication.DIRECTORY_NAME +"/videos/"+ System.currentTimeMillis();
                     FileUtils.createfile(FileUtils.ROOT_PATH + "test666.h264");
                     // if you want to record,please create RecordParams like this
